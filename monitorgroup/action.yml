@@ -14,12 +14,13 @@ inputs:
 outputs:
     statusCode: 
       description: 'Return status code'
-      value: ${{ steps.make-request.outputs.statusCode}}
+      value: ${{ steps.make_request.outputs.statusCode}}
 
 runs:
   using: "composite"
   steps:
-    - id: make-request
+    - name: Make API call
+      id: make_request
       run: | 
         statusCode=$(curl --request PATCH \
           --url https://betteruptime.com/api/v2/monitor-groups/<id>\
