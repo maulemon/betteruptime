@@ -26,6 +26,8 @@ runs:
           --header 'Authorization: Bearer ${{ inputs.token }}' \
           --header 'Content-Type: application/json' \
           --data '{ "paused": "${{ inputs.paused }}" }')
-        
         echo "::set-output name=statusCode::$statusCode"
+        if [ "$statusCode" != "200" ]; then
+          exit 1
+        fi
       shell: bash
