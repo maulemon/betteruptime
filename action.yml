@@ -1,0 +1,31 @@
+name: 'Monitor Group State'
+author: 'Maurycy Widera'
+description: 'Update state for a Monitor Group'
+inputs:
+  token:  # Bearer token https://docs.betteruptime.com/api/getting-started#obtaining-an-api-token
+    description: 'API token'
+    required: true
+  monitorGroupId:  # https://docs.betteruptime.com/api/monitor-groups-api#updating-an-existing-monitor-group
+    description: 'The ID of the monitor group you want to update'
+    required: true
+  paused: # 'true' or 'false'
+    description: 'Set to true to pause monitoring for any existing monitors in the group'
+    required: true
+outputs:
+    statusCode: 
+      description: 'Return status code'
+      value: ${{ steps.make-request.outputs.statusCode}}
+
+runs:
+  using: "composite"
+  steps:
+    - id: make-request
+      run: | 
+        statusCode=$(curl --request PATCH \
+          --url https://betteruptime.com/api/v2/monitor-groups/<id>\
+          --header 'Authorization: Bearer ${{ inputs.token }}' \
+          --header 'Content-Type: application/json' \
+          --data '{ "paused": "${{ inputs.paused }}" }')
+        
+        echo "::set-output name=statusCode::$statusCode"
+      shell: bash
