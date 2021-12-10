@@ -23,7 +23,7 @@ runs:
       id: make_request
       run: | 
         statusCode=$(curl --request PATCH \
-          --url https://betteruptime.com/api/v2/monitor-groups/<id>\
+          --url https://betteruptime.com/api/v2/monitor-groups/${{ inputs.monitorGroupId }} \
           --header 'Authorization: Bearer ${{ inputs.token }}' \
           --header 'Content-Type: application/json' \
           --data '{ "paused": "${{ inputs.paused }}" }')
