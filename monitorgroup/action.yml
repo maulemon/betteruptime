@@ -26,7 +26,10 @@ runs:
           --url https://betteruptime.com/api/v2/monitor-groups/${{ inputs.monitorGroupId }} \
           --header 'Authorization: Bearer ${{ inputs.token }}' \
           --header 'Content-Type: application/json' \
-          --data '{ "paused": "${{ inputs.paused }}" }')
+          --data '{ "paused": "${{ inputs.paused }}" }' \
+          -sw "%{http_code}" \
+          -o /dev/null)
+
         echo "::set-output name=statusCode::$statusCode"
         if [ "$statusCode" != "200" ]; then
           exit 1
