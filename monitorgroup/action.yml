@@ -1,6 +1,6 @@
-name: 'Monitor Group State'
+name: 'monitorgroup'
 author: 'Maurycy Widera'
-description: 'Update state for a Monitor Group'
+description: 'Update state for Better Uptime Monitor Group'
 inputs:
   token:  # Bearer token https://docs.betteruptime.com/api/getting-started#obtaining-an-api-token
     description: 'API token'
